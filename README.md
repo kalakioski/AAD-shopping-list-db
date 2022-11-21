@@ -13,3 +13,20 @@ npm install
 ```
 npm start
 ```
+
+- Create a config folder under src/
+- Create "default.ts" file under config/
+```
+export default {
+  dbUri: 'mongodb://127.0.0.1:27017/shopping-list',
+};
+```
+- Connect to a MongoDB deployment "mongodb://localhost:27017/shopping-list"
+
+## Security
+
+Generate and encode keys for verification
+- [Generate RSA keys](https://travistidwell.com/jsencrypt/demo/)
+- [Encode into base64](https://www.base64encode.org/)
+
+Place encoded keys into .env file, refer to .env.sample
