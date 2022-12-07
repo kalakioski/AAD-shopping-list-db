@@ -14,7 +14,6 @@ npm install
 npm start
 ```
 
-- Create a config folder under src/
 - Create "default.ts" file under config/
 ```
 export default {
