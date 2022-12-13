@@ -82,3 +82,15 @@ export class LoginInput {
   @Field(() => String)
   password: string;
 }
+
+@InputType()
+export class GetUsersInput {
+  @Field(() => String)
+  name: string;
+}
+
+@InputType()
+export class GetUserInput {
+  @Field(() => String)
+  userId: string;
+}

@@ -1,5 +1,5 @@
 import { Arg, Ctx, Mutation, Query, Resolver } from 'type-graphql';
-import { CreateUserInput, LoginInput, User } from '../schema/user.schema';
+import { CreateUserInput, LoginInput, User, GetUserInput, GetUsersInput } from '../schema/user.schema';
 import UserService from '../service/user.service';
 import Context from '../types/context';
 
@@ -22,5 +22,15 @@ export default class UserResolver {
   @Query(() => User, { nullable: true })
   me(@Ctx() context: Context) {
     return context.user;
+  }
+
+  @Query(() => [User])
+  getUsers(@Arg("input") input: GetUsersInput) {
+    return this.userService.getUsers(input);
+  }
+
+  @Query(() => User, {nullable: true})
+  getUser(@Arg("input") input: GetUserInput) {
+    return this.userService.getUserById(input);
   }
 }

@@ -1,6 +1,6 @@
 import { ApolloError } from 'apollo-server';
 import bcrypt from 'bcrypt';
-import { CreateUserInput, LoginInput, UserModel } from '../schema/user.schema';
+import { CreateUserInput, LoginInput, UserModel, GetUserInput, GetUsersInput } from '../schema/user.schema';
 import Context from '../types/context';
 import { signJwt } from '../utils/jwt';
 
@@ -8,6 +8,15 @@ class UserService {
   async createUser(input: CreateUserInput) {
     // Call user model to create a user
     return UserModel.create(input);
+  }
+
+  /* Get users by name */
+  async getUsers(input: GetUsersInput) {
+    return await UserModel.find({name: {$regex: '.*' + input.name + '.*' }});
+  }
+
+  async getUserById(input: GetUserInput) {
+    return await UserModel.findById(input.userId);
   }
 
   async login(input: LoginInput) {
