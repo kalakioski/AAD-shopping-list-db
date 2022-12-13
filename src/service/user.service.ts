@@ -10,7 +10,7 @@ class UserService {
     return UserModel.create(input);
   }
 
-  async login(input: LoginInput, context: Context) {
+  async login(input: LoginInput) {
     const e = 'Invalid email or password';
     // Get our user by email
     const user = await UserModel.find().findByEmail(input.email).lean();
@@ -26,18 +26,8 @@ class UserService {
       throw new ApolloError(e);
     }
 
-    // Sign a JWT
-    const token = signJwt(user);
-
-    // Set a cookie for the JWT
-    context.res.cookie('accessToken', token, {
-      maxAge: 3.15e10, // 1 year
-      httpOnly: true,
-      domain: 'localhost',
-      path: '/',
-      sameSite: 'strict',
-      secure: process.env.NODE_ENV === 'production',
-    });
+    // Sign a JWT with 10 hour expiration
+    const token = signJwt({...user, exp: Math.floor(Date.now() / 1000) + (60 * 60 * 10)});
 
     // Return the JWT
     return token;

@@ -15,8 +15,8 @@ export default class UserResolver {
   }
 
   @Mutation(() => String) // Returns the JWT
-  login(@Arg('input') input: LoginInput, @Ctx() context: Context) {
-    return this.userService.login(input, context);
+  login(@Arg('input') input: LoginInput) {
+    return this.userService.login(input);
   }
 
   @Query(() => User, { nullable: true })

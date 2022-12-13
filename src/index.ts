@@ -36,8 +36,8 @@ async function bootstrap() {
     context: (ctx: Context) => {
       const context = ctx;
 
-      if (ctx.req.cookies.accessToken) {
-        const user = verifyJwt<User>(ctx.req.cookies.accessToken);
+      if (ctx.req.headers.authorization) {
+        const user = verifyJwt<User>(ctx.req.headers.authorization);
 
         context.user = user;
       }
