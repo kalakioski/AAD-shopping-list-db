@@ -57,7 +57,7 @@ async function bootstrap() {
 
   // app.listen on express server
   app.listen({ port: 4000 }, () => {
-    console.log('App is listening on http://localhost:4000');
+    console.log('App is listening on http://localhost:4000/graphql');
   });
   connectToMongo();
 }
