@@ -2,7 +2,6 @@ import 'reflect-metadata';
 import dotenv from 'dotenv';
 import express from 'express';
 import { buildSchema } from 'type-graphql';
-import cookieParser from 'cookie-parser';
 import { ApolloServer } from 'apollo-server-express';
 import {
   ApolloServerPluginLandingPageProductionDefault,
@@ -27,8 +26,6 @@ async function bootstrap() {
   // Init express
 
   const app = express();
-
-  app.use(cookieParser());
 
   // Create the apollo server
   const server = new ApolloServer({
