@@ -12,6 +12,11 @@ export class Group {
   @Field(() => String)
   @prop({ required: true })
   name: string;
+
+  /* TODO: nested functionality */
+  @Field(() => [String])
+  @prop({required: true})
+  users: String[]
 }
 
 export const GroupModel = getModelForClass<typeof Group>(Group);
@@ -26,4 +31,13 @@ export class CreateGroupInput {
 export class DeleteGroupInput {
   @Field(() => String)
   _id: string;
+}
+
+@InputType()
+export class UserGroupIdInput {
+  @Field(() => String)
+  userId: string;
+
+  @Field(() => String)
+  groupId: string;
 }
