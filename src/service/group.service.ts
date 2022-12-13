@@ -69,6 +69,12 @@ class GroupService {
     const updatedGroup = await GroupModel.findById(input.groupId);
     return updatedGroup;
   }
+
+  /* Users own groups */
+  async myGroups(userId: User["_id"]) {
+    const groups = await GroupModel.find({users: {$in: [new mongoose.Types.ObjectId(userId)]}});
+    return groups;
+  }
 }
 
 export default GroupService;
