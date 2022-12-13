@@ -2,7 +2,6 @@ import 'reflect-metadata';
 import dotenv from 'dotenv';
 import express from 'express';
 import { buildSchema } from 'type-graphql';
-import cookieParser from 'cookie-parser';
 import { ApolloServer } from 'apollo-server-express';
 import {
   ApolloServerPluginLandingPageProductionDefault,
@@ -28,16 +27,14 @@ async function bootstrap() {
 
   const app = express();
 
-  app.use(cookieParser());
-
   // Create the apollo server
   const server = new ApolloServer({
     schema,
     context: (ctx: Context) => {
       const context = ctx;
 
-      if (ctx.req.cookies.accessToken) {
-        const user = verifyJwt<User>(ctx.req.cookies.accessToken);
+      if (ctx.req.headers.authorization) {
+        const user = verifyJwt<User>(ctx.req.headers.authorization);
 
         context.user = user;
       }
@@ -57,7 +54,7 @@ async function bootstrap() {
 
   // app.listen on express server
   app.listen({ port: 4000 }, () => {
-    console.log('App is listening on http://localhost:4000');
+    console.log('App is listening on http://localhost:4000/graphql');
   });
   connectToMongo();
 }

@@ -17,9 +17,10 @@ export function signJwt(object: Object, options?: jwt.SignOptions | undefined) {
 
 export function verifyJwt<T>(token: string): T | null {
   try {
-    const decoded = jwt.verify(token, publicKey) as T;
+    const decoded = jwt.verify(token, publicKey, {algorithms: ["RS256"]}) as T;
     return decoded;
   } catch (e) {
+    console.log(e)
     return null;
   }
 }
