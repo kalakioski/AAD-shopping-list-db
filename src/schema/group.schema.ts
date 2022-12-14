@@ -2,7 +2,8 @@ import {
   getModelForClass,
   prop,
 } from '@typegoose/typegoose';
-import { Field, InputType, ObjectType } from 'type-graphql';
+import { Field, ID, InputType, ObjectType } from 'type-graphql';
+import { User } from './user.schema';
 
 @ObjectType()
 export class Group {
@@ -14,9 +15,9 @@ export class Group {
   name: string;
 
   /* TODO: nested functionality */
-  @Field(() => [String])
-  @prop({required: true})
-  users: String[]
+  @Field(() => [User])
+  @prop({required: true, ref: () => User})
+  users: User[]
 }
 
 export const GroupModel = getModelForClass<typeof Group>(Group);
